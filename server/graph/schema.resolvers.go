@@ -91,10 +91,10 @@ func (r *queryResolver) Author(ctx context.Context, id int) (*model.Author, erro
 	return &author, nil
 }
 
-// Mutation returns generated.MutationResolver implementation.
+// Mutation returns generated.MutationResolver implementation
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 
-// Query returns generated.QueryResolver implementation.
+// Query returns generated.QueryResolver implementation
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }

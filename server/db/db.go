@@ -6,11 +6,12 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres" // Used in gorm
-	"github.com/taisuke-j/apollo-demo/graph/model"
 )
 
-// Init creates connection to the postgres server and runs migration
-func Init() *gorm.DB {
+var instance *gorm.DB
+
+// Init creates connection to postgres server
+func Init() {
 	host := os.Getenv("DB_HOST")
 	port := os.Getenv("DB_PORT")
 	dbname := os.Getenv("DB_NAME")
@@ -22,12 +23,26 @@ func Init() *gorm.DB {
 	))
 
 	if err != nil {
-		panic(err.Error())
+		panic(err)
 	}
-
-	db.AutoMigrate(&model.Author{}, &model.Article{})
 
 	db.LogMode(true)
 
-	return db
+	instance = db
+}
+
+// GetInstance returns db connection instance
+func GetInstance() *gorm.DB {
+	if instance == nil {
+		panic("Database connection has not been created.")
+	}
+	return instance
+}
+
+// Close ends the db connection
+func Close() {
+	if instance == nil {
+		return
+	}
+	instance.Close()
 }
