@@ -12,10 +12,10 @@ Example usage of Apollo Client 3 (with Golang GraphQL server)
 
 ### Server
 ```
-docker-compose build                                    // Build the image
-docker-compose run api go run db/migration/migration.go // Migration
-docker-compose run api go run db/seed/seed.go           // Seed
-docker-compose up                                       // Run the container
+docker-compose build                                         // Build the image
+docker-compose run --rm api go run db/migration/migration.go // Migration
+docker-compose run --rm api go run db/seed/seed.go           // Seed
+docker-compose up                                            // Run the container
 ```
 
 ### Client
