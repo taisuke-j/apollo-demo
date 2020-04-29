@@ -18,14 +18,6 @@ type Author {
 }
 
 # Query
-input FetchArticle {
-  id: Int!
-}
-
-input FetchAuthor {
-  id: Int!
-}
-
 type Query {
   articles: [Article!]!
   article(id: Int!): Article!

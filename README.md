@@ -1,10 +1,11 @@
-# Apollo Client 3 Demo
+# Apollo Client Demo
 
 Example usage of Apollo Client 3 (with Golang GraphQL server)
 
 ## Dependencies
 
 - [Apollo Client 3](https://www.apollographql.com/client/)
+- [graphql-codegen](https://graphql-code-generator.com/)
 - [gqlgen](https://gqlgen.com/)
 - [gorm](https://gorm.io/)
 
@@ -19,5 +20,10 @@ docker-compose up                                            // Run the containe
 ```
 
 ### Client
+(Node v12.14.0)
 ```
+npm i
+npm run dev
 ```
+
+The example site will be accessible at http://localhost:3000/
