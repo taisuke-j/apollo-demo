@@ -1,9 +1,9 @@
 # Codegen for the client
 overwrite: true
 schema: ./schema.graphqls
-documents: ../client/graphql/**/*.ts
+documents: ../client/src/graphql/**/*.ts
 generates:
-  ../client/generated/graphql.tsx:
+  ../client/src/generated/graphql.tsx:
     plugins:
       - "typescript"
       - "typescript-operations"
@@ -12,6 +12,6 @@ generates:
       withComponent: false
       withHooks: true
       withHOC: false
-  ../client/generated/schema.json:
+  ../client/src/generated/schema.json:
     plugins:
       - introspection
