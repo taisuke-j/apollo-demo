@@ -1,21 +1,34 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = () => ({
-  entry: './src/index.tsx',
+  entry: "./src/index.tsx",
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: '[name]-[hash:8].js',
+    path: path.resolve(__dirname, "dist"),
+    filename: "[name]-[hash:8].js",
     publicPath: "/"
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
-  plugins: new HtmlWebpackPlugin({
-    template: 'src/html/index.html'
-  }),
   mode: process.env.NODE_ENV === "development" ? "development" : "production",
-  devtool: 'source-map',
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "src/shell/index.html"
+    })
+  ],
+  devtool: "source-map",
+  devServer: {
+    contentBase: path.resolve(__dirname, "dist"),
+    port: 3000,
+    open: true
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
+  },
+  performance: { hints: false },
   module: {
     rules: [
       {

@@ -14,5 +14,5 @@ func main() {
 
 	db.AutoMigrate(&model.Author{}, &model.Article{})
 
-	fmt.Print("\r\n✨  Migration has run.\r\n")
+	fmt.Print("\r\n✨ Migration completed.\r\n")
 }

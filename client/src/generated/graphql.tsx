@@ -102,6 +102,39 @@ export type MutationDeleteAuthorArgs = {
   id: Scalars['Int']
 }
 
+export type CreateArticleMutationVariables = {
+  input: NewArticle
+}
+
+export type CreateArticleMutation = { __typename?: 'Mutation' } & {
+  createArticle: { __typename?: 'Article' } & Pick<
+    Article,
+    'id' | 'title' | 'body'
+  > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
+}
+
+export type UpdateArticleMutationVariables = {
+  input: NewArticle
+}
+
+export type UpdateArticleMutation = { __typename?: 'Mutation' } & {
+  createArticle: { __typename?: 'Article' } & Pick<
+    Article,
+    'id' | 'title' | 'body'
+  > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
+}
+
+export type DeleteArticleMutationVariables = {
+  id: Scalars['Int']
+}
+
+export type DeleteArticleMutation = { __typename?: 'Mutation' } & {
+  deleteArticle: { __typename?: 'Article' } & Pick<
+    Article,
+    'id' | 'title' | 'body'
+  > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
+}
+
 export type GetAuthorsQueryVariables = {}
 
 export type GetAuthorsQuery = { __typename?: 'Query' } & {
@@ -137,6 +170,174 @@ export type GetArticleQuery = { __typename?: 'Query' } & {
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
+export const CreateArticleDocument = gql`
+  mutation createArticle($input: NewArticle!) {
+    createArticle(input: $input) {
+      id
+      title
+      body
+      author {
+        id
+        name
+      }
+    }
+  }
+`
+export type CreateArticleMutationFn = ApolloReactCommon.MutationFunction<
+  CreateArticleMutation,
+  CreateArticleMutationVariables
+>
+
+/**
+ * __useCreateArticleMutation__
+ *
+ * To run a mutation, you first call `useCreateArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createArticleMutation, { data, loading, error }] = useCreateArticleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateArticleMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    CreateArticleMutation,
+    CreateArticleMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    CreateArticleMutation,
+    CreateArticleMutationVariables
+  >(CreateArticleDocument, baseOptions)
+}
+export type CreateArticleMutationHookResult = ReturnType<
+  typeof useCreateArticleMutation
+>
+export type CreateArticleMutationResult = ApolloReactCommon.MutationResult<
+  CreateArticleMutation
+>
+export type CreateArticleMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  CreateArticleMutation,
+  CreateArticleMutationVariables
+>
+export const UpdateArticleDocument = gql`
+  mutation updateArticle($input: NewArticle!) {
+    createArticle(input: $input) {
+      id
+      title
+      body
+      author {
+        id
+        name
+      }
+    }
+  }
+`
+export type UpdateArticleMutationFn = ApolloReactCommon.MutationFunction<
+  UpdateArticleMutation,
+  UpdateArticleMutationVariables
+>
+
+/**
+ * __useUpdateArticleMutation__
+ *
+ * To run a mutation, you first call `useUpdateArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateArticleMutation, { data, loading, error }] = useUpdateArticleMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateArticleMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    UpdateArticleMutation,
+    UpdateArticleMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    UpdateArticleMutation,
+    UpdateArticleMutationVariables
+  >(UpdateArticleDocument, baseOptions)
+}
+export type UpdateArticleMutationHookResult = ReturnType<
+  typeof useUpdateArticleMutation
+>
+export type UpdateArticleMutationResult = ApolloReactCommon.MutationResult<
+  UpdateArticleMutation
+>
+export type UpdateArticleMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  UpdateArticleMutation,
+  UpdateArticleMutationVariables
+>
+export const DeleteArticleDocument = gql`
+  mutation deleteArticle($id: Int!) {
+    deleteArticle(id: $id) {
+      id
+      title
+      body
+      author {
+        id
+        name
+      }
+    }
+  }
+`
+export type DeleteArticleMutationFn = ApolloReactCommon.MutationFunction<
+  DeleteArticleMutation,
+  DeleteArticleMutationVariables
+>
+
+/**
+ * __useDeleteArticleMutation__
+ *
+ * To run a mutation, you first call `useDeleteArticleMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteArticleMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteArticleMutation, { data, loading, error }] = useDeleteArticleMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteArticleMutation(
+  baseOptions?: ApolloReactHooks.MutationHookOptions<
+    DeleteArticleMutation,
+    DeleteArticleMutationVariables
+  >
+) {
+  return ApolloReactHooks.useMutation<
+    DeleteArticleMutation,
+    DeleteArticleMutationVariables
+  >(DeleteArticleDocument, baseOptions)
+}
+export type DeleteArticleMutationHookResult = ReturnType<
+  typeof useDeleteArticleMutation
+>
+export type DeleteArticleMutationResult = ApolloReactCommon.MutationResult<
+  DeleteArticleMutation
+>
+export type DeleteArticleMutationOptions = ApolloReactCommon.BaseMutationOptions<
+  DeleteArticleMutation,
+  DeleteArticleMutationVariables
+>
 export const GetAuthorsDocument = gql`
   query getAuthors {
     authors {

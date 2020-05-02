@@ -1,6 +1,6 @@
 # Apollo Client Demo
 
-Example usage of Apollo Client 3 (with Golang GraphQL server)
+CRUD example of Apollo Client 3 (with Golang GraphQL server)
 
 ## Dependencies
 

@@ -31,5 +31,5 @@ func main() {
 		AuthorID: 1,
 	})
 
-	fmt.Print("\r\n✨  Seed data has been added.\r\n")
+	fmt.Print("\r\n✨ Seed data has been added.\r\n")
 }
