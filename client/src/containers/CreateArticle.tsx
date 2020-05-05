@@ -1,4 +1,6 @@
 import React from 'react'
 
-const CreateArticle = () => <div>test</div>
+import ArticleForm from '../components/ArticleForm'
+
+const CreateArticle: React.FC = () => <ArticleForm title="New Article" />
 export default CreateArticle

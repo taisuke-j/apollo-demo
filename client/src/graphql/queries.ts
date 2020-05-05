@@ -30,6 +30,7 @@ export const GET_ARTICLES = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
@@ -44,6 +45,7 @@ export const GET_ARTICLE = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name

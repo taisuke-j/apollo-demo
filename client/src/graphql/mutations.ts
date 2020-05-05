@@ -9,6 +9,7 @@ export const CREATE_ARTICLE = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
@@ -23,6 +24,7 @@ export const EDIT_ARTICLE = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
@@ -37,6 +39,7 @@ export const DELETE_ARTICLE = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name

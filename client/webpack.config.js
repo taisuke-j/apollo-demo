@@ -21,6 +21,7 @@ module.exports = () => ({
   devServer: {
     contentBase: path.resolve(__dirname, "dist"),
     port: 3000,
+    historyApiFallback: true,
     open: true
   },
   optimization: {
@@ -36,10 +37,7 @@ module.exports = () => ({
         exclude: /node_modules/,
         use: [
           {
-            loader: "ts-loader",
-            options: {
-              transpileOnly: process.env.NODE_ENV === "development"
-            }
+            loader: "ts-loader"
           }
         ]
       },

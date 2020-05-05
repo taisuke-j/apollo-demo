@@ -1,4 +1,6 @@
 import React from 'react'
 
-const EditArticle = () => <div>test</div>
+import ArticleForm from '../components/ArticleForm'
+
+const EditArticle: React.FC = () => <ArticleForm title="Edit Article" />
 export default EditArticle

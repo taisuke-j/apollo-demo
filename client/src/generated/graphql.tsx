@@ -109,7 +109,7 @@ export type CreateArticleMutationVariables = {
 export type CreateArticleMutation = { __typename?: 'Mutation' } & {
   createArticle: { __typename?: 'Article' } & Pick<
     Article,
-    'id' | 'title' | 'body'
+    'id' | 'title' | 'body' | 'createdAt'
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
@@ -120,7 +120,7 @@ export type UpdateArticleMutationVariables = {
 export type UpdateArticleMutation = { __typename?: 'Mutation' } & {
   createArticle: { __typename?: 'Article' } & Pick<
     Article,
-    'id' | 'title' | 'body'
+    'id' | 'title' | 'body' | 'createdAt'
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
@@ -131,7 +131,7 @@ export type DeleteArticleMutationVariables = {
 export type DeleteArticleMutation = { __typename?: 'Mutation' } & {
   deleteArticle: { __typename?: 'Article' } & Pick<
     Article,
-    'id' | 'title' | 'body'
+    'id' | 'title' | 'body' | 'createdAt'
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
@@ -153,9 +153,10 @@ export type GetArticlesQueryVariables = {}
 
 export type GetArticlesQuery = { __typename?: 'Query' } & {
   articles: Array<
-    { __typename?: 'Article' } & Pick<Article, 'id' | 'title' | 'body'> & {
-        author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'>
-      }
+    { __typename?: 'Article' } & Pick<
+      Article,
+      'id' | 'title' | 'body' | 'createdAt'
+    > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
   >
 }
 
@@ -166,7 +167,7 @@ export type GetArticleQueryVariables = {
 export type GetArticleQuery = { __typename?: 'Query' } & {
   article: { __typename?: 'Article' } & Pick<
     Article,
-    'id' | 'title' | 'body'
+    'id' | 'title' | 'body' | 'createdAt'
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
@@ -176,6 +177,7 @@ export const CreateArticleDocument = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
@@ -232,6 +234,7 @@ export const UpdateArticleDocument = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
@@ -288,6 +291,7 @@ export const DeleteArticleDocument = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
@@ -453,6 +457,7 @@ export const GetArticlesDocument = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
@@ -512,6 +517,7 @@ export const GetArticleDocument = gql`
       id
       title
       body
+      createdAt
       author {
         id
         name
