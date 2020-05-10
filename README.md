@@ -1,6 +1,6 @@
 # Apollo Client Demo
 
-CRUD example of Apollo Client 3 (with Golang GraphQL server)
+CRUD example of Apollo Client 3 (with gqlgen)
 
 ## Dependencies
 
@@ -27,3 +27,8 @@ npm run dev
 ```
 
 The example site will be accessible at http://localhost:3000/
+
+
+### About this demo app
+
+`schema.graphqls` file is used by both the server (GraphQL schema) and client (`graphql-codegen` generates types and hooks).

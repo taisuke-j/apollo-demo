@@ -69,7 +69,7 @@ func (r *mutationResolver) DeleteAuthor(ctx context.Context, id int) (*model.Aut
 
 func (r *queryResolver) Articles(ctx context.Context) ([]*model.Article, error) {
 	articles := []*model.Article{}
-	r.DB.Preload("Author").Find(&articles)
+	r.DB.Preload("Author").Order("updated_at desc").Find(&articles)
 	return articles, nil
 }
 

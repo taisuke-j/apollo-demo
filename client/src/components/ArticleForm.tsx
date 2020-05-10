@@ -35,6 +35,7 @@ const BodyTextarea = styled.textarea`
   resize: none;
   width: 100%;
   height: 200px;
+  line-height: 1.6;
   margin: 0 0 10px;
   padding: 15px;
   font-size: 16px;
@@ -69,17 +70,17 @@ export interface ArticleFormData {
 export interface ArticleFormProps {
   title: string
   defaultValues?: ArticleFormData
+  onSubmit: (data: ArticleFormData) => void
 }
 
 const ArticleForm: React.FC<ArticleFormProps> = ({
   title,
   defaultValues,
+  onSubmit,
 }: ArticleFormProps) => {
   const { register, handleSubmit, errors } = useForm<ArticleFormData>({
     defaultValues,
   })
-
-  const onSubmit = (data: ArticleFormData): void => console.log(data)
 
   return (
     <div>

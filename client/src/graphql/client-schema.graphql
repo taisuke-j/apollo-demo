@@ -1,0 +1,7 @@
+type Article {
+  liked: Boolean!
+}
+
+type Query {
+  likedArticles: [Int!]!
+}

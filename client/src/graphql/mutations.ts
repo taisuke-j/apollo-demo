@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 
 /**
  * Article
@@ -10,25 +10,16 @@ export const CREATE_ARTICLE = gql`
       title
       body
       createdAt
-      author {
-        id
-        name
-      }
     }
   }
 `
 
 export const EDIT_ARTICLE = gql`
-  mutation updateArticle($input: NewArticle!) {
-    createArticle(input: $input) {
+  mutation updateArticle($input: EditArticle!) {
+    updateArticle(input: $input) {
       id
       title
       body
-      createdAt
-      author {
-        id
-        name
-      }
     }
   }
 `
@@ -38,12 +29,6 @@ export const DELETE_ARTICLE = gql`
     deleteArticle(id: $id) {
       id
       title
-      body
-      createdAt
-      author {
-        id
-        name
-      }
     }
   }
 `

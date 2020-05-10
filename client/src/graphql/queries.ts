@@ -1,4 +1,4 @@
-import gql from 'graphql-tag'
+import { gql } from '@apollo/client'
 
 /**
  * Author
@@ -31,6 +31,7 @@ export const GET_ARTICLES = gql`
       title
       body
       createdAt
+      liked @client
       author {
         id
         name
@@ -51,5 +52,11 @@ export const GET_ARTICLE = gql`
         name
       }
     }
+  }
+`
+
+export const GET_LIKED_ARTICLES = gql`
+  query getLikedArticles {
+    likedArticles @client
   }
 `

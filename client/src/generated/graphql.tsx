@@ -14,29 +14,23 @@ export type Scalars = {
 
 export type Article = {
   __typename?: 'Article'
-  id: Scalars['Int']
-  title: Scalars['String']
-  body: Scalars['String']
-  authorID: Scalars['Int']
   author: Author
+  authorID: Scalars['Int']
+  body: Scalars['String']
   createdAt: Scalars['Time']
-  updatedAt: Scalars['Time']
-}
-
-export type Author = {
-  __typename?: 'Author'
   id: Scalars['Int']
-  name: Scalars['String']
-  createdAt: Scalars['Time']
+  liked: Scalars['Boolean']
+  title: Scalars['String']
   updatedAt: Scalars['Time']
 }
 
 export type Query = {
   __typename?: 'Query'
-  articles: Array<Article>
   article: Article
-  authors: Array<Author>
+  articles: Array<Article>
   author: Author
+  authors: Array<Author>
+  likedArticles: Array<Scalars['Int']>
 }
 
 export type QueryArticleArgs = {
@@ -45,6 +39,14 @@ export type QueryArticleArgs = {
 
 export type QueryAuthorArgs = {
   id: Scalars['Int']
+}
+
+export type Author = {
+  __typename?: 'Author'
+  id: Scalars['Int']
+  name: Scalars['String']
+  createdAt: Scalars['Time']
+  updatedAt: Scalars['Time']
 }
 
 export type NewArticle = {
@@ -110,18 +112,18 @@ export type CreateArticleMutation = { __typename?: 'Mutation' } & {
   createArticle: { __typename?: 'Article' } & Pick<
     Article,
     'id' | 'title' | 'body' | 'createdAt'
-  > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
+  >
 }
 
 export type UpdateArticleMutationVariables = {
-  input: NewArticle
+  input: EditArticle
 }
 
 export type UpdateArticleMutation = { __typename?: 'Mutation' } & {
-  createArticle: { __typename?: 'Article' } & Pick<
+  updateArticle: { __typename?: 'Article' } & Pick<
     Article,
-    'id' | 'title' | 'body' | 'createdAt'
-  > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
+    'id' | 'title' | 'body'
+  >
 }
 
 export type DeleteArticleMutationVariables = {
@@ -129,10 +131,7 @@ export type DeleteArticleMutationVariables = {
 }
 
 export type DeleteArticleMutation = { __typename?: 'Mutation' } & {
-  deleteArticle: { __typename?: 'Article' } & Pick<
-    Article,
-    'id' | 'title' | 'body' | 'createdAt'
-  > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
+  deleteArticle: { __typename?: 'Article' } & Pick<Article, 'id' | 'title'>
 }
 
 export type GetAuthorsQueryVariables = {}
@@ -155,7 +154,7 @@ export type GetArticlesQuery = { __typename?: 'Query' } & {
   articles: Array<
     { __typename?: 'Article' } & Pick<
       Article,
-      'id' | 'title' | 'body' | 'createdAt'
+      'id' | 'title' | 'body' | 'createdAt' | 'liked'
     > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
   >
 }
@@ -171,6 +170,13 @@ export type GetArticleQuery = { __typename?: 'Query' } & {
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
+export type GetLikedArticlesQueryVariables = {}
+
+export type GetLikedArticlesQuery = { __typename?: 'Query' } & Pick<
+  Query,
+  'likedArticles'
+>
+
 export const CreateArticleDocument = gql`
   mutation createArticle($input: NewArticle!) {
     createArticle(input: $input) {
@@ -178,10 +184,6 @@ export const CreateArticleDocument = gql`
       title
       body
       createdAt
-      author {
-        id
-        name
-      }
     }
   }
 `
@@ -229,16 +231,11 @@ export type CreateArticleMutationOptions = ApolloReactCommon.BaseMutationOptions
   CreateArticleMutationVariables
 >
 export const UpdateArticleDocument = gql`
-  mutation updateArticle($input: NewArticle!) {
-    createArticle(input: $input) {
+  mutation updateArticle($input: EditArticle!) {
+    updateArticle(input: $input) {
       id
       title
       body
-      createdAt
-      author {
-        id
-        name
-      }
     }
   }
 `
@@ -290,12 +287,6 @@ export const DeleteArticleDocument = gql`
     deleteArticle(id: $id) {
       id
       title
-      body
-      createdAt
-      author {
-        id
-        name
-      }
     }
   }
 `
@@ -458,6 +449,7 @@ export const GetArticlesDocument = gql`
       title
       body
       createdAt
+      liked @client
       author {
         id
         name
@@ -571,4 +563,57 @@ export type GetArticleLazyQueryHookResult = ReturnType<
 export type GetArticleQueryResult = ApolloReactCommon.QueryResult<
   GetArticleQuery,
   GetArticleQueryVariables
+>
+export const GetLikedArticlesDocument = gql`
+  query getLikedArticles {
+    likedArticles @client
+  }
+`
+
+/**
+ * __useGetLikedArticlesQuery__
+ *
+ * To run a query within a React component, call `useGetLikedArticlesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetLikedArticlesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetLikedArticlesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetLikedArticlesQuery(
+  baseOptions?: ApolloReactHooks.QueryHookOptions<
+    GetLikedArticlesQuery,
+    GetLikedArticlesQueryVariables
+  >
+) {
+  return ApolloReactHooks.useQuery<
+    GetLikedArticlesQuery,
+    GetLikedArticlesQueryVariables
+  >(GetLikedArticlesDocument, baseOptions)
+}
+export function useGetLikedArticlesLazyQuery(
+  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
+    GetLikedArticlesQuery,
+    GetLikedArticlesQueryVariables
+  >
+) {
+  return ApolloReactHooks.useLazyQuery<
+    GetLikedArticlesQuery,
+    GetLikedArticlesQueryVariables
+  >(GetLikedArticlesDocument, baseOptions)
+}
+export type GetLikedArticlesQueryHookResult = ReturnType<
+  typeof useGetLikedArticlesQuery
+>
+export type GetLikedArticlesLazyQueryHookResult = ReturnType<
+  typeof useGetLikedArticlesLazyQuery
+>
+export type GetLikedArticlesQueryResult = ApolloReactCommon.QueryResult<
+  GetLikedArticlesQuery,
+  GetLikedArticlesQueryVariables
 >

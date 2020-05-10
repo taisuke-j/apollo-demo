@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { ApolloClient, ApolloProvider } from '@apollo/client'
 import { Router, Route, Switch } from 'react-router'
 import { createBrowserHistory } from 'history'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -12,6 +12,9 @@ import {
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
+import cache from './graphql/cache'
+import resolvers from './graphql/resolvers'
+
 import Article from './containers/Article'
 import Articles from './containers/Articles'
 import CreateArticle from './containers/CreateArticle'
@@ -19,7 +22,8 @@ import EditArticle from './containers/EditArticle'
 import Screen from './components/Screen'
 
 export const client = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache,
+  resolvers,
   uri: 'http://localhost:4000/query',
   connectToDevTools: true,
 })

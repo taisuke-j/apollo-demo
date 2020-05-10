@@ -8,6 +8,7 @@ import { GetArticleQuery } from '../generated/graphql'
 
 export interface ArticleDetaisProps {
   article: GetArticleQuery['article']
+  onDelete: (id: number) => void
 }
 
 const ArticleTitle = styled.h1`
@@ -37,8 +38,13 @@ const ArticleBody = styled.p`
   color: #333;
 `
 
+const DeleteWrapper = styled.div`
+  cursor: pointer;
+`
+
 const ArticleList: React.FC<ArticleDetaisProps> = ({
   article,
+  onDelete,
 }: ArticleDetaisProps) => (
   <>
     <ArticleTitle>{article.title}</ArticleTitle>
@@ -57,11 +63,13 @@ const ArticleList: React.FC<ArticleDetaisProps> = ({
         </Link>
       </ArticlePanelItem>
       <ArticlePanelItem>
-        <FontAwesomeIcon
-          icon={['fas', 'trash-alt']}
-          style={{ marginRight: '5px' }}
-        />
-        Delete
+        <DeleteWrapper onClick={() => onDelete(article.id)}>
+          <FontAwesomeIcon
+            icon={['fas', 'trash-alt']}
+            style={{ marginRight: '5px' }}
+          />
+          Delete
+        </DeleteWrapper>
       </ArticlePanelItem>
     </ArticlePanel>
     <ArticleBody>{article.body}</ArticleBody>
