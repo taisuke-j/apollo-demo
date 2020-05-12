@@ -47,16 +47,11 @@ export const GET_ARTICLE = gql`
       title
       body
       createdAt
+      liked @client
       author {
         id
         name
       }
     }
-  }
-`
-
-export const GET_LIKED_ARTICLES = gql`
-  query getLikedArticles {
-    likedArticles @client
   }
 `

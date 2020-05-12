@@ -1,18 +1,21 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
-import ArticleDetails from '../components/ArticleDetails'
-import Loading from '../components/Loading'
-import Error from '../components/Error'
+import { mutateLiked } from '../graphql/mutations'
 import {
   useGetArticleQuery,
   useDeleteArticleMutation,
 } from '../generated/graphql'
 
+import ArticleDetails from '../components/ArticleDetails'
+import Loading from '../components/Loading'
+import Error from '../components/Error'
+
 const Article: React.FC = () => {
-  const { id } = useParams()
   const history = useHistory()
-  const { data, loading, error } = useGetArticleQuery({
+  const { id } = useParams()
+
+  const { data, loading, error, client } = useGetArticleQuery({
     fetchPolicy: 'cache-and-network',
     variables: { id },
   })
@@ -29,17 +32,30 @@ const Article: React.FC = () => {
     return <Error error={error || deleteArticleError} />
   }
 
-  const onDelete = async (id: number) => {
+  const toggleLikedHandler = (id: number, liked: boolean) => {
+    mutateLiked(client, id, liked)
+  }
+
+  const deleteHandler = async (id: number) => {
     if (window.confirm('Are you sure to delete this article?')) {
       await deleteArticle({
         variables: { id },
       })
+
+      // TODO: Remove the entity from the cache
+
       if (!deleteArticleError) {
         history.push('/')
       }
     }
   }
 
-  return <ArticleDetails article={data.article} onDelete={onDelete} />
+  return (
+    <ArticleDetails
+      article={data.article}
+      onToggleLiked={toggleLikedHandler}
+      onDelete={deleteHandler}
+    />
+  )
 }
 export default Article

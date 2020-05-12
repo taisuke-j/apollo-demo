@@ -7,11 +7,9 @@ const FormTitle = styled.h1`
   font-size: 22px;
   color: #333;
 `
-
 const FormGroup = styled.div`
   margin: 30px 0;
 `
-
 const Label = styled.label`
   display: block;
   margin: 0 0 10px;
@@ -19,7 +17,6 @@ const Label = styled.label`
   font-weight: bold;
   color: #333;
 `
-
 const TitleInput = styled.input.attrs({ type: 'text' })`
   width: 100%;
   margin: 0 0 10px;
@@ -29,7 +26,6 @@ const TitleInput = styled.input.attrs({ type: 'text' })`
   border: solid 1px #ccc;
   border-radius: 3px;
 `
-
 const BodyTextarea = styled.textarea`
   appearance: none;
   resize: none;
@@ -43,13 +39,11 @@ const BodyTextarea = styled.textarea`
   border: solid 1px #ccc;
   border-radius: 3px;
 `
-
 const ErrorMessage = styled.p`
   margin: 0;
   font-size: 16px;
   color: orange;
 `
-
 const SubmitButton = styled.button`
   appearance: none;
   cursor: pointer;

@@ -24,13 +24,20 @@ export type Article = {
   updatedAt: Scalars['Time']
 }
 
+export type Author = {
+  __typename?: 'Author'
+  id: Scalars['Int']
+  name: Scalars['String']
+  createdAt: Scalars['Time']
+  updatedAt: Scalars['Time']
+}
+
 export type Query = {
   __typename?: 'Query'
-  article: Article
   articles: Array<Article>
-  author: Author
+  article: Article
   authors: Array<Author>
-  likedArticles: Array<Scalars['Int']>
+  author: Author
 }
 
 export type QueryArticleArgs = {
@@ -39,14 +46,6 @@ export type QueryArticleArgs = {
 
 export type QueryAuthorArgs = {
   id: Scalars['Int']
-}
-
-export type Author = {
-  __typename?: 'Author'
-  id: Scalars['Int']
-  name: Scalars['String']
-  createdAt: Scalars['Time']
-  updatedAt: Scalars['Time']
 }
 
 export type NewArticle = {
@@ -134,6 +133,11 @@ export type DeleteArticleMutation = { __typename?: 'Mutation' } & {
   deleteArticle: { __typename?: 'Article' } & Pick<Article, 'id' | 'title'>
 }
 
+export type LikedFieldFragment = { __typename?: 'Article' } & Pick<
+  Article,
+  'liked'
+>
+
 export type GetAuthorsQueryVariables = {}
 
 export type GetAuthorsQuery = { __typename?: 'Query' } & {
@@ -166,17 +170,15 @@ export type GetArticleQueryVariables = {
 export type GetArticleQuery = { __typename?: 'Query' } & {
   article: { __typename?: 'Article' } & Pick<
     Article,
-    'id' | 'title' | 'body' | 'createdAt'
+    'id' | 'title' | 'body' | 'createdAt' | 'liked'
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
-export type GetLikedArticlesQueryVariables = {}
-
-export type GetLikedArticlesQuery = { __typename?: 'Query' } & Pick<
-  Query,
-  'likedArticles'
->
-
+export const LikedFieldFragmentDoc = gql`
+  fragment likedField on Article {
+    liked
+  }
+`
 export const CreateArticleDocument = gql`
   mutation createArticle($input: NewArticle!) {
     createArticle(input: $input) {
@@ -449,7 +451,7 @@ export const GetArticlesDocument = gql`
       title
       body
       createdAt
-      liked @client
+      liked @client(always: true)
       author {
         id
         name
@@ -510,6 +512,7 @@ export const GetArticleDocument = gql`
       title
       body
       createdAt
+      liked @client(always: true)
       author {
         id
         name
@@ -563,57 +566,4 @@ export type GetArticleLazyQueryHookResult = ReturnType<
 export type GetArticleQueryResult = ApolloReactCommon.QueryResult<
   GetArticleQuery,
   GetArticleQueryVariables
->
-export const GetLikedArticlesDocument = gql`
-  query getLikedArticles {
-    likedArticles @client
-  }
-`
-
-/**
- * __useGetLikedArticlesQuery__
- *
- * To run a query within a React component, call `useGetLikedArticlesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetLikedArticlesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetLikedArticlesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useGetLikedArticlesQuery(
-  baseOptions?: ApolloReactHooks.QueryHookOptions<
-    GetLikedArticlesQuery,
-    GetLikedArticlesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useQuery<
-    GetLikedArticlesQuery,
-    GetLikedArticlesQueryVariables
-  >(GetLikedArticlesDocument, baseOptions)
-}
-export function useGetLikedArticlesLazyQuery(
-  baseOptions?: ApolloReactHooks.LazyQueryHookOptions<
-    GetLikedArticlesQuery,
-    GetLikedArticlesQueryVariables
-  >
-) {
-  return ApolloReactHooks.useLazyQuery<
-    GetLikedArticlesQuery,
-    GetLikedArticlesQueryVariables
-  >(GetLikedArticlesDocument, baseOptions)
-}
-export type GetLikedArticlesQueryHookResult = ReturnType<
-  typeof useGetLikedArticlesQuery
->
-export type GetLikedArticlesLazyQueryHookResult = ReturnType<
-  typeof useGetLikedArticlesLazyQuery
->
-export type GetLikedArticlesQueryResult = ApolloReactCommon.QueryResult<
-  GetLikedArticlesQuery,
-  GetLikedArticlesQueryVariables
 >

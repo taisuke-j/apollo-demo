@@ -1,18 +1,18 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
-import ArticleForm, { ArticleFormData } from '../components/ArticleForm'
-import Loading from '../components/Loading'
-import Error from '../components/Error'
 import {
   useGetArticleQuery,
   useUpdateArticleMutation,
 } from '../generated/graphql'
-import { useParams } from 'react-router-dom'
+
+import ArticleForm, { ArticleFormData } from '../components/ArticleForm'
+import Loading from '../components/Loading'
+import Error from '../components/Error'
 
 const EditArticle: React.FC = () => {
-  const { id } = useParams()
   const history = useHistory()
+  const { id } = useParams()
 
   const { data, loading, error } = useGetArticleQuery({
     fetchPolicy: 'cache-and-network',

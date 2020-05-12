@@ -11,6 +11,7 @@ import {
   faEdit,
   faTrashAlt,
 } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faRegHeart } from '@fortawesome/free-regular-svg-icons'
 
 import cache from './graphql/cache'
 import resolvers from './graphql/resolvers'
@@ -30,7 +31,7 @@ export const client = new ApolloClient({
 
 const history = createBrowserHistory()
 
-library.add(faHeart, faSpinner, faPlus, faEdit, faTrashAlt)
+library.add(faHeart, faSpinner, faPlus, faEdit, faTrashAlt, faRegHeart)
 
 render(
   <Router history={history}>

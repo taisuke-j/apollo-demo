@@ -1,17 +1,9 @@
 import { InMemoryCache } from '@apollo/client'
 
-const cache: InMemoryCache = new InMemoryCache({
-  typePolicies: {
-    Query: {
-      fields: {
-        likedArticles: {
-          read() {
-            return [5]
-          },
-        },
-      },
-    },
-  },
-})
+const cache: InMemoryCache = new InMemoryCache()
+
+export const likedArticlesVar = cache.makeLocalVar<number[]>(
+  localStorage.likedArticles ? JSON.parse(localStorage.likedArticles) : []
+)
 
 export default cache

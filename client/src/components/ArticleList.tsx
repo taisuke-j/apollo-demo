@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import dayjs from 'dayjs'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { GetArticlesQuery } from '../generated/graphql'
 
 export interface ArticleListProps {
   articles: GetArticlesQuery['articles']
+  onToggleLiked: (id: number, liked: boolean) => void
   onDelete: (id: number) => void
 }
 
@@ -30,18 +31,17 @@ const ArticlePanelItem = styled.div`
     color: #999;
   }
 `
-
 const ArticleListItem = styled.div`
   margin-bottom: 40px;
 `
-
-const DeleteWrapper = styled.div`
+const Clickable = styled.div`
   cursor: pointer;
 `
 
 const ArticleList: React.FC<ArticleListProps> = ({
   articles,
   onDelete,
+  onToggleLiked,
 }: ArticleListProps) => (
   <>
     {articles.map((article) => (
@@ -50,6 +50,17 @@ const ArticleList: React.FC<ArticleListProps> = ({
           <Link to={`/articles/${article.id}`}>{article.title}</Link>
         </ArticleTitle>
         <ArticlePanel>
+          <ArticlePanelItem>
+            <Clickable
+              onClick={() => onToggleLiked(article.id, !article.liked)}
+            >
+              {article.liked ? (
+                <FontAwesomeIcon icon={['fas', 'heart']} color="#FF6666" />
+              ) : (
+                <FontAwesomeIcon icon={['far', 'heart']} color="#999" />
+              )}
+            </Clickable>
+          </ArticlePanelItem>
           <ArticlePanelItem>Author: {article.author.name}</ArticlePanelItem>
           <ArticlePanelItem>
             Posted on: {dayjs(article.createdAt).format('MMMM D')}
@@ -64,13 +75,13 @@ const ArticleList: React.FC<ArticleListProps> = ({
             </Link>
           </ArticlePanelItem>
           <ArticlePanelItem>
-            <DeleteWrapper onClick={() => onDelete(article.id)}>
+            <Clickable onClick={() => onDelete(article.id)}>
               <FontAwesomeIcon
                 icon={['fas', 'trash-alt']}
                 style={{ marginRight: '5px' }}
               />
               Delete
-            </DeleteWrapper>
+            </Clickable>
           </ArticlePanelItem>
         </ArticlePanel>
       </ArticleListItem>

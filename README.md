@@ -2,6 +2,8 @@
 
 CRUD example of Apollo Client 3 (with gqlgen)
 
+(It's currently using a beta version of Apollo Client 3, and the code will keep getting updated)
+
 ## Dependencies
 
 - [Apollo Client 3](https://www.apollographql.com/client/)
