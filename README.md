@@ -2,7 +2,7 @@
 
 CRUD example of Apollo Client 3 (with gqlgen)
 
-(It's currently using a beta version of Apollo Client 3, and the code will keep getting updated until the release)
+(It's currently using `@apollo/client v3.0.0-rc.10`.)
 
 ## Dependencies
 
