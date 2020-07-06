@@ -1,4 +1,4 @@
-import { ApolloClient, NormalizedCache, gql, LocalVar } from '@apollo/client'
+import { ApolloClient, NormalizedCache, gql, ReactiveVar } from '@apollo/client'
 
 import { likedArticlesVar } from './cache'
 
@@ -35,7 +35,7 @@ export const DELETE_ARTICLE = gql`
   }
 `
 
-const createLikeArticle = (likedArticlesVar: LocalVar<number[]>) => {
+const createLikeArticle = (likedArticlesVar: ReactiveVar<number[]>) => {
   return (id: number) => {
     const likedArticleIds = likedArticlesVar()
     if (likedArticleIds.includes(id)) {
@@ -49,8 +49,10 @@ const createLikeArticle = (likedArticlesVar: LocalVar<number[]>) => {
 }
 export const likeArticle = createLikeArticle(likedArticlesVar)
 
-export const createUnlikeArticle = (likedArticlesVar: LocalVar<number[]>) => {
-  return (id: number) => {
+export const createUnlikeArticle = (
+  likedArticlesVar: ReactiveVar<number[]>
+) => {
+  return (id: number): void => {
     const likedArticleIds = likedArticlesVar()
     const filteredArticleIds = likedArticleIds.filter(
       (articleId: number) => articleId !== id
@@ -62,22 +64,10 @@ export const createUnlikeArticle = (likedArticlesVar: LocalVar<number[]>) => {
 export const unlikeArticle = createUnlikeArticle(likedArticlesVar)
 
 export const mutateLiked = (
-  client: ApolloClient<NormalizedCache>,
+  _client: ApolloClient<NormalizedCache>,
   id: number,
   liked: boolean
-) => {
-  client.writeFragment({
-    id: `Article:${id}`,
-    fragment: gql`
-      fragment likedField on Article {
-        liked
-      }
-    `,
-    data: {
-      liked,
-    },
-  })
-
+): void => {
   if (liked) {
     likeArticle(id)
     return

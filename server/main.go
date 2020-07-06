@@ -37,6 +37,6 @@ func main() {
 	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	router.Handle("/query", server)
 
-	log.Printf("🚀  GraphQL playground ready at http://localhost:%s/", port)
+	log.Printf("🚀 GraphQL playground ready at http://localhost:%s/", port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }

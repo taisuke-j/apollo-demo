@@ -1,7 +1,8 @@
 import gql from 'graphql-tag'
-import * as ApolloReactCommon from '@apollo/react-common'
-import * as ApolloReactHooks from '@apollo/react-hooks'
+import * as ApolloReactCommon from '@apollo/client'
+import * as ApolloReactHooks from '@apollo/client'
 export type Maybe<T> = T | null
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string
@@ -103,9 +104,9 @@ export type MutationDeleteAuthorArgs = {
   id: Scalars['Int']
 }
 
-export type CreateArticleMutationVariables = {
+export type CreateArticleMutationVariables = Exact<{
   input: NewArticle
-}
+}>
 
 export type CreateArticleMutation = { __typename?: 'Mutation' } & {
   createArticle: { __typename?: 'Article' } & Pick<
@@ -114,9 +115,9 @@ export type CreateArticleMutation = { __typename?: 'Mutation' } & {
   >
 }
 
-export type UpdateArticleMutationVariables = {
+export type UpdateArticleMutationVariables = Exact<{
   input: EditArticle
-}
+}>
 
 export type UpdateArticleMutation = { __typename?: 'Mutation' } & {
   updateArticle: { __typename?: 'Article' } & Pick<
@@ -125,9 +126,9 @@ export type UpdateArticleMutation = { __typename?: 'Mutation' } & {
   >
 }
 
-export type DeleteArticleMutationVariables = {
+export type DeleteArticleMutationVariables = Exact<{
   id: Scalars['Int']
-}
+}>
 
 export type DeleteArticleMutation = { __typename?: 'Mutation' } & {
   deleteArticle: { __typename?: 'Article' } & Pick<Article, 'id' | 'title'>
@@ -138,21 +139,21 @@ export type LikedFieldFragment = { __typename?: 'Article' } & Pick<
   'liked'
 >
 
-export type GetAuthorsQueryVariables = {}
+export type GetAuthorsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAuthorsQuery = { __typename?: 'Query' } & {
   authors: Array<{ __typename?: 'Author' } & Pick<Author, 'id' | 'name'>>
 }
 
-export type GetAuthorQueryVariables = {
+export type GetAuthorQueryVariables = Exact<{
   id: Scalars['Int']
-}
+}>
 
 export type GetAuthorQuery = { __typename?: 'Query' } & {
   author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'>
 }
 
-export type GetArticlesQueryVariables = {}
+export type GetArticlesQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetArticlesQuery = { __typename?: 'Query' } & {
   articles: Array<
@@ -163,9 +164,9 @@ export type GetArticlesQuery = { __typename?: 'Query' } & {
   >
 }
 
-export type GetArticleQueryVariables = {
+export type GetArticleQueryVariables = Exact<{
   id: Scalars['Int']
-}
+}>
 
 export type GetArticleQuery = { __typename?: 'Query' } & {
   article: { __typename?: 'Article' } & Pick<
@@ -451,7 +452,7 @@ export const GetArticlesDocument = gql`
       title
       body
       createdAt
-      liked @client(always: true)
+      liked @client
       author {
         id
         name
@@ -512,7 +513,7 @@ export const GetArticleDocument = gql`
       title
       body
       createdAt
-      liked @client(always: true)
+      liked @client
       author {
         id
         name

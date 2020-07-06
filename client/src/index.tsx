@@ -14,7 +14,6 @@ import {
 import { faHeart as faRegHeart } from '@fortawesome/free-regular-svg-icons'
 
 import cache from './graphql/cache'
-import resolvers from './graphql/resolvers'
 
 import Article from './containers/Article'
 import Articles from './containers/Articles'
@@ -24,7 +23,6 @@ import Screen from './components/Screen'
 
 export const client = new ApolloClient({
   cache,
-  resolvers,
   uri: 'http://localhost:4000/query',
   connectToDevTools: true,
 })

@@ -1,4 +1,4 @@
-# Apollo Client Demo
+# Apollo Client 3 Demo
 
 CRUD example of Apollo Client 3 (with gqlgen)
 
