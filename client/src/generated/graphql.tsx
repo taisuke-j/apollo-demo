@@ -134,11 +134,6 @@ export type DeleteArticleMutation = { __typename?: 'Mutation' } & {
   deleteArticle: { __typename?: 'Article' } & Pick<Article, 'id' | 'title'>
 }
 
-export type LikedFieldFragment = { __typename?: 'Article' } & Pick<
-  Article,
-  'liked'
->
-
 export type GetAuthorsQueryVariables = Exact<{ [key: string]: never }>
 
 export type GetAuthorsQuery = { __typename?: 'Query' } & {
@@ -175,11 +170,6 @@ export type GetArticleQuery = { __typename?: 'Query' } & {
   > & { author: { __typename?: 'Author' } & Pick<Author, 'id' | 'name'> }
 }
 
-export const LikedFieldFragmentDoc = gql`
-  fragment likedField on Article {
-    liked
-  }
-`
 export const CreateArticleDocument = gql`
   mutation createArticle($input: NewArticle!) {
     createArticle(input: $input) {

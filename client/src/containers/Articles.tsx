@@ -38,7 +38,6 @@ const Articles: React.FC = () => {
       await deleteArticle({
         variables: { id },
         update: (cache) => {
-          // TODO: Use cache.modify instead
           const { articles } = cache.readQuery({
             query: GET_ARTICLES,
           })
