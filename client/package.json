@@ -50,7 +50,7 @@
     "websocket-extensions": ">=0.1.4"
   },
   "dependencies": {
-    "@apollo/client": "^3.0.0-rc.13",
+    "@apollo/client": "^3.0.0",
     "@apollo/react-hooks": "^4.0.0-beta.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@fortawesome/free-regular-svg-icons": "^5.13.1",
