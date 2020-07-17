@@ -34,8 +34,8 @@ func main() {
 
 	server := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{DB: db.GetInstance()}}))
 
-	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	router.Handle("/query", server)
+	router.Handle("/", playground.Handler("GraphQL playground", "/graphql"))
+	router.Handle("/graphql", server)
 
 	log.Printf("🚀 GraphQL playground ready at http://localhost:%s/", port)
 	log.Fatal(http.ListenAndServe(":"+port, router))

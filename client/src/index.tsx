@@ -23,7 +23,7 @@ import Screen from './components/Screen'
 
 export const client = new ApolloClient({
   cache,
-  uri: 'http://localhost:4000/query',
+  uri: 'http://localhost:4000/graphql',
   connectToDevTools: true,
 })
 
